@@ -1,0 +1,17 @@
+@import '@shared/styles';
+
+.language {
+  min-width: 100px;
+  color: $black;
+  &-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    &-flag {
+      width: 22px;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+    }
+  }
+}

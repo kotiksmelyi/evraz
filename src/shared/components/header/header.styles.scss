@@ -1,0 +1,16 @@
+@import '@shared/styles';
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.ui-header {
+  padding: 10px 3%;
+}
+
+.language {
+  margin-left: auto;
+  a {
+    color: $white;
+  }
+}

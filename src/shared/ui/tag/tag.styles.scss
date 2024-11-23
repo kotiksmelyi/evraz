@@ -1,0 +1,9 @@
+@import '../../styles/index.scss';
+
+.ui-tag {
+  background: rgba($color: $black, $alpha: 0.15);
+  color: $grey-light;
+  padding: 8px;
+  font-family: 'Montserrat';
+  font-size: 14px;
+}
