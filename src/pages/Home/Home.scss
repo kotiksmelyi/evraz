@@ -1,0 +1,7 @@
+@import '../../shared/styles/fonts.scss';
+
+.kek-div {
+  & > p {
+    @include Roboto;
+  }
+}
