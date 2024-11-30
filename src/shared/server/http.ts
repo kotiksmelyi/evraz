@@ -36,7 +36,11 @@ export const useGetReport = () => {
   return useMutation({
     mutationFn: async (reportId: string | null) => {
       if (!reportId) return;
-      const response = await api.get(`report/${reportId}`);
+      const response = await api.get(`report/${reportId}`, {
+        headers: {
+          'Content-Type': 'application/pdf',
+        },
+      });
       return response.data;
     },
   });

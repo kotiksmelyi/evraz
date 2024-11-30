@@ -10,13 +10,11 @@ import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import kfc from './kfc.pdf';
 import { useGetReport, useGetReview, useUploadFile } from '@shared/server/http';
-import { fetchUploadFile } from '@shared/server/http';
 import Lottie from 'lottie-react';
 import animation from './animation.json';
 
 function App() {
   const [uploadedFiles, setUploadedFiles] = useState<RcFile[]>([]);
-  const [reportId, setReportId] = useState<string | null>(null);
   const [numPages, setNumPages] = useState<number>();
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
@@ -24,21 +22,40 @@ function App() {
   }
   pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
 
-  const { mutate: fetchUpload, data: uploadFileData, isPending: isUploadFilePending } = useUploadFile();
+  const { mutate: fetchUpload, data: reportId, isPending: isUploadFilePending } = useUploadFile();
   const { mutate: fetchDownloadReport, data: reportData, isPending: isReportLoading } = useGetReport();
   const { data: reviewData, isLoading: isReviewLoading } = useGetReview();
 
-  console.log({ reportId, uploadFileData, isUploadFilePending, reportData, isReportLoading });
+  console.log({ uploadedFiles, reportId, isUploadFilePending, reportData, isReportLoading });
 
   const handleSend = () => {
     if (uploadedFiles.length) {
       fetchUpload(uploadedFiles[0], {
-        onSuccess: (id) => setReportId(id),
+        onSuccess: (id) => fetchDownloadReport(id),
       });
     }
   };
 
-  const handleDownload = () => fetchDownloadReport(reportId);
+  const handleDownloadPDF = () => {
+    try {
+      const pdfData = new TextEncoder().encode(reportData);
+      const blob = new Blob([pdfData], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+  
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'document.pdf';
+      document.body.appendChild(link);
+      link.click();
+  
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+      }, 1000);
+    } catch (error) {
+      console.error('Ошибка при загрузке PDF:', error);
+    }
+  };
 
   const handleBeforeUpload = (file: RcFile) => {
     if (uploadedFiles.length === 1) {
@@ -111,7 +128,7 @@ function App() {
                 <Button disabled={!uploadedFiles.length} onClick={handleSend} type="primary">
                   Отправить
                 </Button>
-                <Button disabled={!reportId} onClick={handleDownload}>
+                <Button disabled={!reportId} onClick={handleDownloadPDF}>
                   Скачать pdf
                 </Button>
               </Flex>
