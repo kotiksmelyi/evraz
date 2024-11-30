@@ -86,16 +86,6 @@ function App() {
     <ThemeProvider>
       <Layout className="main-layout">
         <Content>
-          {/*<div className="history">
-              <h2>История отчётов</h2>
-              <div>
-                <p>Отчёт 1</p>
-                <p>Отчёт 2</p>
-                <p>Отчёт 3</p>
-                <p>Отчёт 4</p>
-              </div>
-            </div>*/}
-          <p>Загрузите файл или архив для анализа.</p>
           <Flex vertical align="center">
             <Flex gap="middle" vertical align="center" className="upload-widget">
               <Upload
