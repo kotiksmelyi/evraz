@@ -11,6 +11,7 @@ import { Content, Header } from 'antd/es/layout/layout';
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import kfc from './kfc.pdf';
+import { fetchUploadFile } from '@shared/server/http';
 
 function App() {
   const [uploadedFiles, setUploadedFiles] = useState<RcFile[]>([]);
@@ -21,7 +22,9 @@ function App() {
     setNumPages(numPages);
   }
   pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
-  const handleSend = () => null;
+  const handleSend = () => {
+    fetchUploadFile(uploadedFiles[0]);
+  };
   const handleDownload = () => null;
 
   const handleBeforeUpload = (file: RcFile) => {
@@ -102,7 +105,7 @@ function App() {
               </Flex>
               <Document file={kfc} onLoadSuccess={onDocumentLoadSuccess}>
                 <Page pageNumber={1} />
-				<Page pageNumber={2} />
+                <Page pageNumber={2} />
               </Document>
             </Flex>
           </Content>
