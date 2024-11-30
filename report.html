@@ -273,325 +273,50 @@
               /></svg></span
           >${el.title}
         </h3>
-      </div>
-    </main>
-  </body>
-  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-  <script>
-    const json = {
-      id: 'aca54ee0-b432-4b55-8114-7c3ae96f34ab',
-      titles: ['Раздел 1', 'Раздел 2', 'Раздел 3', 'Раздел 4'],
-      code_comments: [
-        {
-          title: 'Раздел 1',
-          lines: [
-            { order: 7, text: 'строка 7\n' },
-            { order: 8, text: 'строка 8\n' },
-            { order: 9, text: 'строка 9\n' },
-            { order: 10, text: 'строка 10\n' },
-            { order: 11, text: 'строка 11\n' },
-            { order: 12, text: 'строка 12\n' },
-            { order: 13, text: 'строка 13\n' },
-            { order: 14, text: 'строка 14\n' },
-            { order: 15, text: 'строка 15\n' },
-            { order: 16, text: 'строка 16\n' },
-            { order: 17, text: 'строка 17\n' },
-          ],
-          start_string_number: 10,
-          end_string_number: 15,
-          filepath: '/project/file1.py',
-          comment: 'Комментарий 1',
-          suggestion:
-            'from pydantic import BaseModel, Field\n\nclass CodeComment(BaseModel):\ntitle: str = Field(description="Название раздела")\nstart_string_number: int = Field(description="Номер строки (начало)")\nend_string_number: int = Field(description="Номер строки (конец)")\nfilepath: str = Field(description="Путь до файла")\ncomment: str = Field(description="Комментарий к участку кода")\nsuggestion: str = Field(description="Рекомендации по исправлению", default=None)\n\nclass ProjectComment(BaseModel):\ntitle: str = Field(description="Название раздела")\ncomment: str = Field(description="Комментарий")\n\nclass OutputJson(BaseModel):\ntitles: list[str] = Field(description="Список возможных разделов, к которым относятся комментарии")\ncode_comments: list[CodeComment]\nproject_comments: list[ProjectComment]',
-        },
-        {
-          title: 'Раздел 1',
-          lines: [
-            { order: 7, text: '2строка 7\n' },
-            { order: 8, text: '2строка 8\n' },
-            { order: 9, text: '2строка 9\n' },
-            { order: 10, text: '2строка 10\n' },
-            { order: 11, text: '2строка 11\n' },
-            { order: 12, text: '2строка 12\n' },
-            { order: 13, text: '2строка 13\n' },
-            { order: 14, text: '2строка 14\n' },
-            { order: 15, text: '2строка 15\n' },
-            { order: 16, text: '2строка 16\n' },
-            { order: 17, text: '2строка 17\n' },
-          ],
-          start_string_number: 10,
-          end_string_number: 15,
-          filepath: '/project/file2.py',
-          comment: 'Комментарий 2',
-          suggestion:
-            'from pydantic import BaseModel, Field\n\nclass CodeComment(BaseModel):\ntitle: str = Field(description="Название раздела")\nstart_string_number: int = Field(description="Номер строки (начало)")\nend_string_number: int = Field(description="Номер строки (конец)")\nfilepath: str = Field(description="Путь до файла")\ncomment: str = Field(description="Комментарий к участку кода")\nsuggestion: str = Field(description="Рекомендации по исправлению", default=None)\n\nclass ProjectComment(BaseModel):\ntitle: str = Field(description="Название раздела")\ncomment: str = Field(description="Комментарий")\n\nclass OutputJson(BaseModel):\ntitles: list[str] = Field(description="Список возможных разделов, к которым относятся комментарии")\ncode_comments: list[CodeComment]\nproject_comments: list[ProjectComment]',
-        },
-        {
-          title: 'Раздел 1',
-          lines: [
-            { order: 7, text: '3строка 7\n' },
-            { order: 8, text: '3строка 8\n' },
-            { order: 9, text: '3строка 9\n' },
-            { order: 10, text: '3строка 10\n' },
-            { order: 11, text: '3строка 11\n' },
-            { order: 12, text: '3строка 12\n' },
-            { order: 13, text: '3строка 13\n' },
-            { order: 14, text: '3строка 14\n' },
-            { order: 15, text: '3строка 15\n' },
-            { order: 16, text: '3строка 16\n' },
-            { order: 17, text: '3строка 17\n' },
-          ],
-          start_string_number: 10,
-          end_string_number: 15,
-          filepath: '/project/file3.py',
-          comment: 'Комментарий 3',
-          suggestion:
-            'from pydantic import BaseModel, Field\n\nclass CodeComment(BaseModel):\ntitle: str = Field(description="Название раздела")\nstart_string_number: int = Field(description="Номер строки (начало)")\nend_string_number: int = Field(description="Номер строки (конец)")\nfilepath: str = Field(description="Путь до файла")\ncomment: str = Field(description="Комментарий к участку кода")\nsuggestion: str = Field(description="Рекомендации по исправлению", default=None)\n\nclass ProjectComment(BaseModel):\ntitle: str = Field(description="Название раздела")\ncomment: str = Field(description="Комментарий")\n\nclass OutputJson(BaseModel):\ntitles: list[str] = Field(description="Список возможных разделов, к которым относятся комментарии")\ncode_comments: list[CodeComment]\nproject_comments: list[ProjectComment]',
-        },
-        {
-          title: 'Раздел 2',
-          lines: [
-            { order: 7, text: 'строка 7\n' },
-            { order: 8, text: 'строка 8\n' },
-            { order: 9, text: 'строка 9\n' },
-            { order: 10, text: 'строка 10\n' },
-            { order: 11, text: 'строка 11\n' },
-            { order: 12, text: 'строка 12\n' },
-            { order: 13, text: 'строка 13\n' },
-            { order: 14, text: 'строка 14\n' },
-            { order: 15, text: 'строка 15\n' },
-            { order: 16, text: 'строка 16\n' },
-            { order: 17, text: 'строка 17\n' },
-          ],
-          start_string_number: 10,
-          end_string_number: 15,
-          filepath: '/project/file1.py',
-          comment: 'Комментарий 1',
-          suggestion:
-            'from pydantic import BaseModel, Field\n\nclass CodeComment(BaseModel):\ntitle: str = Field(description="Название раздела")\nstart_string_number: int = Field(description="Номер строки (начало)")\nend_string_number: int = Field(description="Номер строки (конец)")\nfilepath: str = Field(description="Путь до файла")\ncomment: str = Field(description="Комментарий к участку кода")\nsuggestion: str = Field(description="Рекомендации по исправлению", default=None)\n\nclass ProjectComment(BaseModel):\ntitle: str = Field(description="Название раздела")\ncomment: str = Field(description="Комментарий")\n\nclass OutputJson(BaseModel):\ntitles: list[str] = Field(description="Список возможных разделов, к которым относятся комментарии")\ncode_comments: list[CodeComment]\nproject_comments: list[ProjectComment]',
-        },
-        {
-          title: 'Раздел 2',
-          lines: [
-            { order: 7, text: '2строка 7\n' },
-            { order: 8, text: '2строка 8\n' },
-            { order: 9, text: '2строка 9\n' },
-            { order: 10, text: '2строка 10\n' },
-            { order: 11, text: '2строка 11\n' },
-            { order: 12, text: '2строка 12\n' },
-            { order: 13, text: '2строка 13\n' },
-            { order: 14, text: '2строка 14\n' },
-            { order: 15, text: '2строка 15\n' },
-            { order: 16, text: '2строка 16\n' },
-            { order: 17, text: '2строка 17\n' },
-          ],
-          start_string_number: 10,
-          end_string_number: 15,
-          filepath: '/project/file2.py',
-          comment: 'Комментарий 2',
-          suggestion:
-            'from pydantic import BaseModel, Field\n\nclass CodeComment(BaseModel):\ntitle: str = Field(description="Название раздела")\nstart_string_number: int = Field(description="Номер строки (начало)")\nend_string_number: int = Field(description="Номер строки (конец)")\nfilepath: str = Field(description="Путь до файла")\ncomment: str = Field(description="Комментарий к участку кода")\nsuggestion: str = Field(description="Рекомендации по исправлению", default=None)\n\nclass ProjectComment(BaseModel):\ntitle: str = Field(description="Название раздела")\ncomment: str = Field(description="Комментарий")\n\nclass OutputJson(BaseModel):\ntitles: list[str] = Field(description="Список возможных разделов, к которым относятся комментарии")\ncode_comments: list[CodeComment]\nproject_comments: list[ProjectComment]',
-        },
-        {
-          title: 'Раздел 2',
-          lines: [
-            { order: 7, text: '3строка 7\n' },
-            { order: 8, text: '3строка 8\n' },
-            { order: 9, text: '3строка 9\n' },
-            { order: 10, text: '3строка 10\n' },
-            { order: 11, text: '3строка 11\n' },
-            { order: 12, text: '3строка 12\n' },
-            { order: 13, text: '3строка 13\n' },
-            { order: 14, text: '3строка 14\n' },
-            { order: 15, text: '3строка 15\n' },
-            { order: 16, text: '3строка 16\n' },
-            { order: 17, text: '3строка 17\n' },
-          ],
-          start_string_number: 10,
-          end_string_number: 15,
-          filepath: '/project/file3.py',
-          comment: 'Комментарий 3',
-          suggestion:
-            'from pydantic import BaseModel, Field\n\nclass CodeComment(BaseModel):\ntitle: str = Field(description="Название раздела")\nstart_string_number: int = Field(description="Номер строки (начало)")\nend_string_number: int = Field(description="Номер строки (конец)")\nfilepath: str = Field(description="Путь до файла")\ncomment: str = Field(description="Комментарий к участку кода")\nsuggestion: str = Field(description="Рекомендации по исправлению", default=None)\n\nclass ProjectComment(BaseModel):\ntitle: str = Field(description="Название раздела")\ncomment: str = Field(description="Комментарий")\n\nclass OutputJson(BaseModel):\ntitles: list[str] = Field(description="Список возможных разделов, к которым относятся комментарии")\ncode_comments: list[CodeComment]\nproject_comments: list[ProjectComment]',
-        },
-        {
-          title: 'Раздел 3',
-          lines: [
-            { order: 7, text: 'строка 7\n' },
-            { order: 8, text: 'строка 8\n' },
-            { order: 9, text: 'строка 9\n' },
-            { order: 10, text: 'строка 10\n' },
-            { order: 11, text: 'строка 11\n' },
-            { order: 12, text: 'строка 12\n' },
-            { order: 13, text: 'строка 13\n' },
-            { order: 14, text: 'строка 14\n' },
-            { order: 15, text: 'строка 15\n' },
-            { order: 16, text: 'строка 16\n' },
-            { order: 17, text: 'строка 17\n' },
-          ],
-          start_string_number: 10,
-          end_string_number: 15,
-          filepath: '/project/file1.py',
-          comment: 'Комментарий 1',
-          suggestion:
-            'from pydantic import BaseModel, Field\n\nclass CodeComment(BaseModel):\ntitle: str = Field(description="Название раздела")\nstart_string_number: int = Field(description="Номер строки (начало)")\nend_string_number: int = Field(description="Номер строки (конец)")\nfilepath: str = Field(description="Путь до файла")\ncomment: str = Field(description="Комментарий к участку кода")\nsuggestion: str = Field(description="Рекомендации по исправлению", default=None)\n\nclass ProjectComment(BaseModel):\ntitle: str = Field(description="Название раздела")\ncomment: str = Field(description="Комментарий")\n\nclass OutputJson(BaseModel):\ntitles: list[str] = Field(description="Список возможных разделов, к которым относятся комментарии")\ncode_comments: list[CodeComment]\nproject_comments: list[ProjectComment]',
-        },
-        {
-          title: 'Раздел 3',
-          lines: [
-            { order: 7, text: '2строка 7\n' },
-            { order: 8, text: '2строка 8\n' },
-            { order: 9, text: '2строка 9\n' },
-            { order: 10, text: '2строка 10\n' },
-            { order: 11, text: '2строка 11\n' },
-            { order: 12, text: '2строка 12\n' },
-            { order: 13, text: '2строка 13\n' },
-            { order: 14, text: '2строка 14\n' },
-            { order: 15, text: '2строка 15\n' },
-            { order: 16, text: '2строка 16\n' },
-            { order: 17, text: '2строка 17\n' },
-          ],
-          start_string_number: 10,
-          end_string_number: 15,
-          filepath: '/project/file2.py',
-          comment: 'Комментарий 2',
-          suggestion:
-            'from pydantic import BaseModel, Field\n\nclass CodeComment(BaseModel):\ntitle: str = Field(description="Название раздела")\nstart_string_number: int = Field(description="Номер строки (начало)")\nend_string_number: int = Field(description="Номер строки (конец)")\nfilepath: str = Field(description="Путь до файла")\ncomment: str = Field(description="Комментарий к участку кода")\nsuggestion: str = Field(description="Рекомендации по исправлению", default=None)\n\nclass ProjectComment(BaseModel):\ntitle: str = Field(description="Название раздела")\ncomment: str = Field(description="Комментарий")\n\nclass OutputJson(BaseModel):\ntitles: list[str] = Field(description="Список возможных разделов, к которым относятся комментарии")\ncode_comments: list[CodeComment]\nproject_comments: list[ProjectComment]',
-        },
-        {
-          title: 'Раздел 3',
-          lines: [
-            { order: 7, text: '3строка 7\n' },
-            { order: 8, text: '3строка 8\n' },
-            { order: 9, text: '3строка 9\n' },
-            { order: 10, text: '3строка 10\n' },
-            { order: 11, text: '3строка 11\n' },
-            { order: 12, text: '3строка 12\n' },
-            { order: 13, text: '3строка 13\n' },
-            { order: 14, text: '3строка 14\n' },
-            { order: 15, text: '3строка 15\n' },
-            { order: 16, text: '3строка 16\n' },
-            { order: 17, text: '3строка 17\n' },
-          ],
-          start_string_number: 10,
-          end_string_number: 15,
-          filepath: '/project/file3.py',
-          comment: 'Комментарий 3',
-          suggestion:
-            'from pydantic import BaseModel, Field\n\nclass CodeComment(BaseModel):\ntitle: str = Field(description="Название раздела")\nstart_string_number: int = Field(description="Номер строки (начало)")\nend_string_number: int = Field(description="Номер строки (конец)")\nfilepath: str = Field(description="Путь до файла")\ncomment: str = Field(description="Комментарий к участку кода")\nsuggestion: str = Field(description="Рекомендации по исправлению", default=None)\n\nclass ProjectComment(BaseModel):\ntitle: str = Field(description="Название раздела")\ncomment: str = Field(description="Комментарий")\n\nclass OutputJson(BaseModel):\ntitles: list[str] = Field(description="Список возможных разделов, к которым относятся комментарии")\ncode_comments: list[CodeComment]\nproject_comments: list[ProjectComment]',
-        },
-        {
-          title: 'Раздел 4',
-          lines: [
-            { order: 7, text: 'строка 7\n' },
-            { order: 8, text: 'строка 8\n' },
-            { order: 9, text: 'строка 9\n' },
-            { order: 10, text: 'строка 10\n' },
-            { order: 11, text: 'строка 11\n' },
-            { order: 12, text: 'строка 12\n' },
-            { order: 13, text: 'строка 13\n' },
-            { order: 14, text: 'строка 14\n' },
-            { order: 15, text: 'строка 15\n' },
-            { order: 16, text: 'строка 16\n' },
-            { order: 17, text: 'строка 17\n' },
-          ],
-          start_string_number: 10,
-          end_string_number: 15,
-          filepath: '/project/file1.py',
-          comment: 'Комментарий 1',
-          suggestion:
-            'from pydantic import BaseModel, Field\n\nclass CodeComment(BaseModel):\ntitle: str = Field(description="Название раздела")\nstart_string_number: int = Field(description="Номер строки (начало)")\nend_string_number: int = Field(description="Номер строки (конец)")\nfilepath: str = Field(description="Путь до файла")\ncomment: str = Field(description="Комментарий к участку кода")\nsuggestion: str = Field(description="Рекомендации по исправлению", default=None)\n\nclass ProjectComment(BaseModel):\ntitle: str = Field(description="Название раздела")\ncomment: str = Field(description="Комментарий")\n\nclass OutputJson(BaseModel):\ntitles: list[str] = Field(description="Список возможных разделов, к которым относятся комментарии")\ncode_comments: list[CodeComment]\nproject_comments: list[ProjectComment]',
-        },
-        {
-          title: 'Раздел 4',
-          lines: [
-            { order: 7, text: '2строка 7\n' },
-            { order: 8, text: '2строка 8\n' },
-            { order: 9, text: '2строка 9\n' },
-            { order: 10, text: '2строка 10\n' },
-            { order: 11, text: '2строка 11\n' },
-            { order: 12, text: '2строка 12\n' },
-            { order: 13, text: '2строка 13\n' },
-            { order: 14, text: '2строка 14\n' },
-            { order: 15, text: '2строка 15\n' },
-            { order: 16, text: '2строка 16\n' },
-            { order: 17, text: '2строка 17\n' },
-          ],
-          start_string_number: 10,
-          end_string_number: 15,
-          filepath: '/project/file2.py',
-          comment: 'Комментарий 2',
-          suggestion:
-            'from pydantic import BaseModel, Field\n\nclass CodeComment(BaseModel):\ntitle: str = Field(description="Название раздела")\nstart_string_number: int = Field(description="Номер строки (начало)")\nend_string_number: int = Field(description="Номер строки (конец)")\nfilepath: str = Field(description="Путь до файла")\ncomment: str = Field(description="Комментарий к участку кода")\nsuggestion: str = Field(description="Рекомендации по исправлению", default=None)\n\nclass ProjectComment(BaseModel):\ntitle: str = Field(description="Название раздела")\ncomment: str = Field(description="Комментарий")\n\nclass OutputJson(BaseModel):\ntitles: list[str] = Field(description="Список возможных разделов, к которым относятся комментарии")\ncode_comments: list[CodeComment]\nproject_comments: list[ProjectComment]',
-        },
-        {
-          title: 'Раздел 4',
-          lines: [
-            { order: 7, text: '3строка 7\n' },
-            { order: 8, text: '3строка 8\n' },
-            { order: 9, text: '3строка 9\n' },
-            { order: 10, text: '3строка 10\n' },
-            { order: 11, text: '3строка 11\n' },
-            { order: 12, text: '3строка 12\n' },
-            { order: 13, text: '3строка 13\n' },
-            { order: 14, text: '3строка 14\n' },
-            { order: 15, text: '3строка 15\n' },
-            { order: 16, text: '3строка 16\n' },
-            { order: 17, text: '3строка 17\n' },
-          ],
-          start_string_number: 10,
-          end_string_number: 15,
-          filepath: '/project/file3.py',
-          comment: 'Комментарий 3',
-          suggestion:
-            'from pydantic import BaseModel, Field\n\nclass CodeComment(BaseModel):\ntitle: str = Field(description="Название раздела")\nstart_string_number: int = Field(description="Номер строки (начало)")\nend_string_number: int = Field(description="Номер строки (конец)")\nfilepath: str = Field(description="Путь до файла")\ncomment: str = Field(description="Комментарий к участку кода")\nsuggestion: str = Field(description="Рекомендации по исправлению", default=None)\n\nclass ProjectComment(BaseModel):\ntitle: str = Field(description="Название раздела")\ncomment: str = Field(description="Комментарий")\n\nclass OutputJson(BaseModel):\ntitles: list[str] = Field(description="Список возможных разделов, к которым относятся комментарии")\ncode_comments: list[CodeComment]\nproject_comments: list[ProjectComment]',
-        },
-      ],
-      project_comments: [
-        { title: 'Раздел 1', comment: 'Комментарий 1' },
-        { title: 'Раздел 2', comment: 'Комментарий 1' },
-        { title: 'Раздел 3', comment: 'Комментарий 1' },
-        { title: 'Раздел 4', comment: 'Комментарий 1' },
-      ],
-    };
-    const overview = document.getElementById('overview-list');
-    const total = document.getElementById('total');
-    overview.innerHTML = json.titles
-      .map(
-        (e) =>
-          `<li>${e}: <span class="medium">${
-            json.code_comments.filter((el) => el.title === e).length +
-            json.project_comments.filter((el) => el.title === e).length
-          }</span></li>`,
-      )
-      .join('');
-
-    total.innerHTML = json.code_comments.length + json.project_comments.length;
-    const transformFunc = () => {
-      const result = json.titles.map((e) => ({ title: e, content: [] }));
-      json.code_comments.forEach((el) => {
-        const index = result.findIndex((e) => e.title === el.title);
-        result[index].content.push(el);
-      });
-      json.project_comments.forEach((el) => {
-        const index = result.findIndex((e) => e.title === el.title);
-        result[index].content.push(el);
-      });
-      return result;
-    };
-
-    transformFunc().forEach((el) => {
-      if (el.title) {
-        document.querySelector('main').innerHTML += `
-    		<div class="flex column" id="${el.title}">
-    			<h3 class="flex align-center"><span class="flex align-center" style="margin-right: 4px"><svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24"><path d="M2,3v18c0,0.6,0.4,1,1,1h5V2H3C2.4,2,2,2.4,2,3z M21,2H10v20h11c0.6,0,1-0.4,1-1V3C22,2.4,21.6,2,21,2z"/></svg></span>${el.title}</h3>
-    		</div>`;
-      }
-      el.content.forEach((e) => {
-        if (!e.suggestion) {
-          document.getElementById(el.title).innerHTML = document.getElementById(
-            el.title,
-          ).innerHTML += `<div class="comment-container flex">
+        <div class="comment-container flex" style="break-after:page">
+          <div style="width: 24px; margin-right: 8px">
+            <svg
+              class="w-6 h-6 text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="#00141f"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+          </div>
+          <p style="margin-top: 2px">${e.comment}</p>
+        </div>
+		(* * *)<<<<
+        <div class="flex column comment-code">
+          <div class="flex align-center" style="margin-bottom: 24px">
+            <svg
+              class="w-6 h-6 text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"
+              />
+            </svg>
+            <p class="medium">..${e.filepath}</p>
+          </div>
+          <div class="comment-container-blue flex">
             <div style="width: 24px; margin-right: 8px">
               <svg
                 class="w-6 h-6 text-gray-800 dark:text-white"
@@ -611,71 +336,24 @@
                 />
               </svg>
             </div>
-            <p style="margin-top: 2px">
-              ${e.comment}
-            </p>
-          </div>`;
-        } else {
-          document.getElementById(el.title).innerHTML += `<div class="flex column comment-code">
-            <div class="flex align-center" style="margin-bottom: 24px">
-              <svg
-                class="w-6 h-6 text-gray-800 dark:text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"
-                />
-              </svg>
-              <p class="medium">..${e.filepath}</p>
-            </div>
-            <div class="comment-container-blue flex">
-              <div style="width: 24px; margin-right: 8px">
-                <svg
-                  class="w-6 h-6 text-gray-800 dark:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="#00141f"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  />
-                </svg>
-              </div>
-              <p style="margin-top: 2px">
-                ${e.comment}
-              </p>
-            </div>
-            <div class="code"><pre class="prettyprint lang-py linenums:${
-              e.start_string_number
-            }" style="white-space: pre-line">
-				${e.suggestion.replace(/</g, '&lt;')}
+            <p style="margin-top: 2px">${e.comment}</p>
+          </div>
+          <div class="code">
+            <pre class="prettyprint lang-py linenums:${ e.start_string_number }" style="white-space: pre-line">
+    			{e.suggestion}
       	  </pre
-              ></div>
-            <p>Предложенные изменения</p>
-            <div class="code-green">
-              <pre class="prettyprint lang-py linenums:${e.start_string_number}" style="white-space: pre-line">
-				${e.suggestion.replace(/</g, '&lt;')}
+            >
+          </div>
+          <p>Предложенные изменения</p>
+          <div class="code-green">
+            <pre class="prettyprint lang-py linenums:${e.start_string_number}" style="white-space: pre-line">
+    			{e.suggestion}
       	  </pre
-              >
-            </div>
-          </div>`;
-        }
-      });
-    });
-  </script>
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 </html>

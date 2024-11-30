@@ -11,10 +11,16 @@ import { pdfjs } from 'react-pdf';
 import { useGetReport, useUploadFile } from '@shared/server/http';
 import Lottie from 'lottie-react';
 import animation from './animation.json';
+import city from '../shared/assets/mock-images/city.png';
+import border from './border.json';
+import Logo from '../shared/assets/logo.svg?react';
+import { CheckOutlined } from '@ant-design/icons';
+import useWindowSize from '@shared/hooks/useWindowSize';
 
 function App() {
   const [uploadedFiles, setUploadedFiles] = useState<RcFile[]>([]);
   const [numPages, setNumPages] = useState<number>();
+  const { width } = useWindowSize();
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
     setNumPages(numPages);
@@ -22,9 +28,7 @@ function App() {
   pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
 
   const { mutate: fetchUpload, data: reportId, isPending: isUploadFilePending } = useUploadFile();
-  const { data: reportData, isPending: isReportLoading, refetch: requestReport } = useGetReport(reportId);
-
-  console.log({ uploadedFiles, reportId, isUploadFilePending, reportData, isReportLoading });
+  const { data: reportData, isLoading: isReportLoading, refetch: requestReport } = useGetReport(reportId);
 
   const handleSend = () => {
     if (uploadedFiles.length) {
@@ -80,68 +84,96 @@ function App() {
     setUploadedFiles((prevFiles) => prevFiles.filter((prevFile) => prevFile.uid !== file.uid));
     message.success(`${file.name} удален.`);
   };
-  console.log(new Array(numPages));
 
   return (
     <ThemeProvider>
       <Layout className="main-layout">
+        <img src={city} alt="city" className="background" />
+        <header>
+          <Logo />
+        </header>
         <Content>
-          <Flex vertical align="center">
-            <Flex gap="middle" vertical align="center" className="upload-widget">
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={true}
-                onRemove={handleRemove}
-                multiple={false}
-                maxCount={1}
-                beforeUpload={handleBeforeUpload}
-                locale={{}}
-              >
-                {uploadedFiles.length ? null : (
-                  <Flex vertical align="center" gap={'small'}>
-                    <div className="upload-icon">
-                      <DownloadOutlined />
-                    </div>
-                    <p>
-                      Перетащите сюда файл
-                      <br /> или нажмите, чтобы загрузить
-                    </p>
-                  </Flex>
-                )}
-              </Upload>
-              <Flex gap="small">
-                <Button disabled={!uploadedFiles.length} onClick={handleSend} type="primary">
-                  Отправить
-                </Button>
-                <Button disabled={!reportData || !uploadedFiles.length} onClick={handleDownloadPDF}>
-                  Скачать pdf
-                </Button>
+          <Flex vertical align="center" gap="middle">
+            <Flex gap="middle" align="center" className="upload-widget">
+              <Flex vertical align="center" gap="large" className="instructions">
+                <p>
+                  <CheckOutlined /> Загрузите файл или ZIP-архив
+                </p>
+                <p>
+                  <CheckOutlined /> Нажмите кнопку "Отправить"
+                </p>
+                <p>
+                  <CheckOutlined /> Вы можете скачать готовый pdf отчёт или просмотреть его ниже.
+                </p>
+              </Flex>
+              <Flex vertical align="center" gap="small">
+                <Upload
+                  name="avatar"
+                  listType="picture-card"
+                  className="avatar-uploader"
+                  showUploadList={true}
+                  onRemove={handleRemove}
+                  multiple={false}
+                  maxCount={1}
+                  beforeUpload={handleBeforeUpload}
+                  locale={{}}
+                >
+                  {uploadedFiles.length ? null : (
+                    <Flex vertical align="center" gap={'small'}>
+                      <div className="upload-icon">
+                        <DownloadOutlined />
+                      </div>
+                      <p>
+                        Перетащите сюда файл
+                        <br /> или нажмите, чтобы загрузить
+                      </p>
+                    </Flex>
+                  )}
+                </Upload>
+                <Flex gap="small">
+                  <Button disabled={!uploadedFiles.length} onClick={handleSend} type="primary">
+                    Отправить
+                  </Button>
+                  <Button disabled={!reportData || !uploadedFiles.length} onClick={handleDownloadPDF}>
+                    Скачать pdf
+                  </Button>
+                </Flex>
               </Flex>
             </Flex>
-            {(isUploadFilePending || isReportLoading) && (
+            {isReportLoading && (
               <div className={'loading-container'}>
-                <Lottie animationData={animation} loop={true} />;
+                <Lottie animationData={animation} loop={true} />
               </div>
             )}
-            {reportData && (
-              <Document file={reportData} onLoadSuccess={onDocumentLoadSuccess}>
-                {Array.from(new Array(numPages), (_, index) => (
-                  <Page
-                    noData={<></>}
-                    loading={<></>}
-                    error={<></>}
-                    renderAnnotationLayer={false}
-                    renderTextLayer={false}
-                    key={`page_${index + 1}`}
-                    pageNumber={index + 1}
-                  />
-                ))}
-              </Document>
+            {reportData && !isReportLoading && (
+              <div style={{ scale: 0.5 }}>
+                <Document file={reportData} onLoadSuccess={onDocumentLoadSuccess} className={'pdf-container'}>
+                  {Array.from(new Array(numPages), (_, index) => (
+                    <Page
+                      noData={<></>}
+                      loading={<></>}
+                      error={<></>}
+                      width={width}
+                      renderAnnotationLayer={false}
+                      renderTextLayer={false}
+                      key={`page_${index + 1}`}
+                      pageNumber={index + 1}
+                    />
+                  ))}
+                </Document>
+              </div>
             )}
           </Flex>
         </Content>
+        <div className="animated-border">
+          <Lottie animationData={border} loop={true} />
+        </div>
+        <div className="animated-border">
+          <Lottie animationData={border} loop={true} />
+        </div>
+        <div className="animated-border">
+          <Lottie animationData={border} loop={true} />
+        </div>
       </Layout>
     </ThemeProvider>
   );
