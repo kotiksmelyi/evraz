@@ -9,7 +9,7 @@ import { Content } from 'antd/es/layout/layout';
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import kfc from './kfc.pdf';
-import { useGetReport, useGetReview, useUploadFile } from '@shared/server/http';
+import { useGetReport, useUploadFile } from '@shared/server/http';
 import Lottie from 'lottie-react';
 import animation from './animation.json';
 
@@ -23,15 +23,14 @@ function App() {
   pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
 
   const { mutate: fetchUpload, data: reportId, isPending: isUploadFilePending } = useUploadFile();
-  const { mutate: fetchDownloadReport, data: reportData, isPending: isReportLoading } = useGetReport();
-  const { data: reviewData, isLoading: isReviewLoading } = useGetReview();
+  const { data: reportData, isPending: isReportLoading, refetch: requestReport } = useGetReport(reportId);
 
   console.log({ uploadedFiles, reportId, isUploadFilePending, reportData, isReportLoading });
 
   const handleSend = () => {
     if (uploadedFiles.length) {
       fetchUpload(uploadedFiles[0], {
-        onSuccess: (id) => fetchDownloadReport(id),
+        onSuccess: (id) => requestReport(id),
       });
     }
   };
@@ -128,7 +127,7 @@ function App() {
                 <Button disabled={!uploadedFiles.length} onClick={handleSend} type="primary">
                   Отправить
                 </Button>
-                <Button disabled={!reportData} onClick={handleDownloadPDF}>
+                <Button disabled={!reportData || !uploadedFiles.length} onClick={handleDownloadPDF}>
                   Скачать pdf
                 </Button>
               </Flex>

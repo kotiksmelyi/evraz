@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { RcFile } from 'antd/es/upload';
 import axios from 'axios';
 
@@ -32,29 +32,18 @@ export const useUploadFile = () => {
 //#endregion
 
 //#region Загрузка отчета PDF файлом
-export const useGetReport = () => {
-  return useMutation({
-    mutationFn: async (reportId: string | null) => {
-      if (!reportId) return;
-      const response = await api.get(`report/${reportId}`, {
-        headers: {
-          'Content-Type': 'application/pdf',
-        },
-      });
+export const useGetReport = (reportId: string) => {
+  return useQuery({
+    queryKey: ['report', reportId],
+    queryFn: async () => {
+      if (!reportId) return null;
+      const response = await api.get(`report/${reportId}`);
       return response.data;
     },
+    enabled: !!reportId,
   });
 };
 //#endregion
 
 //#region Загрузка ревью
-export const useGetReview = () => {
-  return useMutation({
-    mutationFn: async (reportId: string | null) => {
-      if (!reportId) return;
-      const response = await api.get(`review/${reportId}`);
-      return response.data;
-    },
-  });
-};
 //#endregion
