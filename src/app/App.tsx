@@ -133,9 +133,11 @@ function App() {
                 </Button>
               </Flex>
             </Flex>
-            <div className={'loading-container'}>
-              <Lottie animationData={animation} loop={true} />;
-            </div>
+            {(isUploadFilePending || isReportLoading) && (
+              <div className={'loading-container'}>
+                <Lottie animationData={animation} loop={true} />;
+              </div>
+            )}
             <Document file={kfc} onLoadSuccess={onDocumentLoadSuccess}>
               {Array.from(new Array(numPages), (_, index) => (
                 <Page
