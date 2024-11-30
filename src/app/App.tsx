@@ -81,63 +81,62 @@ function App() {
                 <p>Отчёт 4</p>
               </div>
             </div>*/}
-            <p>Загрузите файл или архив для анализа.</p>
-            <Flex vertical align='center'>
-              <Flex gap="middle" vertical align="center" className="upload-widget">
-                <Upload
-                  name="avatar"
-                  listType="picture-card"
-                  className="avatar-uploader"
-                  showUploadList={true}
-                  onRemove={handleRemove}
-                  multiple={false}
-                  maxCount={1}
-                  beforeUpload={handleBeforeUpload}
-                  locale={{}}
-                >
-                  {uploadedFiles.length ? null : (
-                    <Flex vertical align="center" gap={'small'}>
-                      <div className="upload-icon">
-                        <DownloadOutlined />
-                      </div>
-                      <p>
-                        Перетащите сюда файл
-                        <br /> или нажмите, чтобы загрузить
-                      </p>
-                    </Flex>
-                  )}
-                </Upload>
-                <Flex gap="small">
-                  <Button disabled={!uploadedFiles.length} onClick={handleSend} type="primary">
-                    Отправить
-                  </Button>
-                  <Button disabled={!reportId} onClick={handleDownload}>
-                    Скачать pdf
-                  </Button>
-                </Flex>
+          <p>Загрузите файл или архив для анализа.</p>
+          <Flex vertical align="center">
+            <Flex gap="middle" vertical align="center" className="upload-widget">
+              <Upload
+                name="avatar"
+                listType="picture-card"
+                className="avatar-uploader"
+                showUploadList={true}
+                onRemove={handleRemove}
+                multiple={false}
+                maxCount={1}
+                beforeUpload={handleBeforeUpload}
+                locale={{}}
+              >
+                {uploadedFiles.length ? null : (
+                  <Flex vertical align="center" gap={'small'}>
+                    <div className="upload-icon">
+                      <DownloadOutlined />
+                    </div>
+                    <p>
+                      Перетащите сюда файл
+                      <br /> или нажмите, чтобы загрузить
+                    </p>
+                  </Flex>
+                )}
+              </Upload>
+              <Flex gap="small">
+                <Button disabled={!uploadedFiles.length} onClick={handleSend} type="primary">
+                  Отправить
+                </Button>
+                <Button disabled={!reportId} onClick={handleDownload}>
+                  Скачать pdf
+                </Button>
               </Flex>
-              <div className={'loading-container'}>
-                <Lottie animationData={animation} loop={true} />;
-              </div>
-              <Document file={kfc} onLoadSuccess={onDocumentLoadSuccess}>
-                {Array.from(new Array(numPages), (_, index) => (
-                  <Page
-                    noData={<></>}
-                    loading={<></>}
-                    error={<></>}
-                    renderAnnotationLayer={false}
-                    renderTextLayer={false}
-                    key={`page_${index + 1}`}
-                    pageNumber={index + 1}
-                  />
-                ))}
-              </Document>
             </Flex>
+            <div className={'loading-container'}>
+              <Lottie animationData={animation} loop={true} />;
+            </div>
             <Document file={kfc} onLoadSuccess={onDocumentLoadSuccess}>
-              <Page pageNumber={1} />
-              <Page pageNumber={2} />
+              {Array.from(new Array(numPages), (_, index) => (
+                <Page
+                  noData={<></>}
+                  loading={<></>}
+                  error={<></>}
+                  renderAnnotationLayer={false}
+                  renderTextLayer={false}
+                  key={`page_${index + 1}`}
+                  pageNumber={index + 1}
+                />
+              ))}
             </Document>
           </Flex>
+          <Document file={kfc} onLoadSuccess={onDocumentLoadSuccess}>
+            <Page pageNumber={1} />
+            <Page pageNumber={2} />
+          </Document>
         </Content>
       </Layout>
     </ThemeProvider>
