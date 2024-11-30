@@ -37,7 +37,10 @@ export const useGetReport = (reportId: string) => {
     queryKey: ['report', reportId],
     queryFn: async () => {
       if (!reportId) return null;
-      const response = await api.get(`report/${reportId}`);
+      const response = await api.get(`report/${reportId}`, {
+        headers: { Accept: 'application/pdf' },
+        responseType: 'arraybuffer',
+      });
       return response.data;
     },
     enabled: !!reportId,
