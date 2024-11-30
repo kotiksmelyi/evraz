@@ -41,13 +41,13 @@ function App() {
       const pdfData = new TextEncoder().encode(reportData);
       const blob = new Blob([pdfData], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
-  
+
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'document.pdf';
+      link.download = `${uploadedFiles[0].name.split('.')[0]}.pdf`;
       document.body.appendChild(link);
       link.click();
-  
+
       setTimeout(() => {
         URL.revokeObjectURL(url);
         document.body.removeChild(link);
