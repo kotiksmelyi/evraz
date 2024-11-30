@@ -5,17 +5,19 @@ import { Button, Flex, Layout, message, Upload } from 'antd';
 import { useState } from 'react';
 import { RcFile, UploadFile } from 'antd/es/upload';
 import { DownloadOutlined } from '@ant-design/icons';
-import { Content, Header } from 'antd/es/layout/layout';
+import { Content } from 'antd/es/layout/layout';
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import kfc from './kfc.pdf';
 import { useGetReport, useGetReview, useUploadFile } from '@shared/server/http';
+import { fetchUploadFile } from '@shared/server/http';
+import Lottie from 'lottie-react';
+import animation from './animation.json';
 
 function App() {
   const [uploadedFiles, setUploadedFiles] = useState<RcFile[]>([]);
   const [reportId, setReportId] = useState<string | null>(null);
   const [numPages, setNumPages] = useState<number>();
-  const [pageNumber, setPageNumber] = useState<number>(1);
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
     setNumPages(numPages);
@@ -64,6 +66,7 @@ function App() {
     setUploadedFiles((prevFiles) => prevFiles.filter((prevFile) => prevFile.uid !== file.uid));
     message.success(`${file.name} удален.`);
   };
+  console.log(new Array(numPages));
 
   return (
     <ThemeProvider>
@@ -78,40 +81,57 @@ function App() {
                 <p>Отчёт 4</p>
               </div>
             </div>*/}
-          <p>Загрузите файл или архив для анализа.</p>
-          <Flex vertical>
-            <Flex gap="middle" vertical align="center" className="upload-widget">
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={true}
-                onRemove={handleRemove}
-                multiple={false}
-                maxCount={1}
-                beforeUpload={handleBeforeUpload}
-                locale={{}}
-              >
-                {uploadedFiles.length ? null : (
-                  <Flex vertical align="center" gap={'small'}>
-                    <div className="upload-icon">
-                      <DownloadOutlined />
-                    </div>
-                    <p>
-                      Перетащите сюда файл
-                      <br /> или нажмите, чтобы загрузить
-                    </p>
-                  </Flex>
-                )}
-              </Upload>
-              <Flex gap="small">
-                <Button disabled={!uploadedFiles.length} onClick={handleSend} type="primary">
-                  Отправить
-                </Button>
-                <Button disabled={!reportId} onClick={handleDownload}>
-                  Скачать pdf
-                </Button>
+            <p>Загрузите файл или архив для анализа.</p>
+            <Flex vertical align='center'>
+              <Flex gap="middle" vertical align="center" className="upload-widget">
+                <Upload
+                  name="avatar"
+                  listType="picture-card"
+                  className="avatar-uploader"
+                  showUploadList={true}
+                  onRemove={handleRemove}
+                  multiple={false}
+                  maxCount={1}
+                  beforeUpload={handleBeforeUpload}
+                  locale={{}}
+                >
+                  {uploadedFiles.length ? null : (
+                    <Flex vertical align="center" gap={'small'}>
+                      <div className="upload-icon">
+                        <DownloadOutlined />
+                      </div>
+                      <p>
+                        Перетащите сюда файл
+                        <br /> или нажмите, чтобы загрузить
+                      </p>
+                    </Flex>
+                  )}
+                </Upload>
+                <Flex gap="small">
+                  <Button disabled={!uploadedFiles.length} onClick={handleSend} type="primary">
+                    Отправить
+                  </Button>
+                  <Button disabled={!reportId} onClick={handleDownload}>
+                    Скачать pdf
+                  </Button>
+                </Flex>
               </Flex>
+              <div className={'loading-container'}>
+                <Lottie animationData={animation} loop={true} />;
+              </div>
+              <Document file={kfc} onLoadSuccess={onDocumentLoadSuccess}>
+                {Array.from(new Array(numPages), (_, index) => (
+                  <Page
+                    noData={<></>}
+                    loading={<></>}
+                    error={<></>}
+                    renderAnnotationLayer={false}
+                    renderTextLayer={false}
+                    key={`page_${index + 1}`}
+                    pageNumber={index + 1}
+                  />
+                ))}
+              </Document>
             </Flex>
             <Document file={kfc} onLoadSuccess={onDocumentLoadSuccess}>
               <Page pageNumber={1} />
