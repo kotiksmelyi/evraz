@@ -7,7 +7,7 @@ import { Button, Flex, Layout, message, Upload } from 'antd';
 import { useState } from 'react';
 import { RcFile, UploadFile } from 'antd/es/upload';
 import { DownloadOutlined } from '@ant-design/icons';
-import { Content, Header } from 'antd/es/layout/layout';
+import { Content } from 'antd/es/layout/layout';
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import kfc from './kfc.pdf';
@@ -16,7 +16,6 @@ import { fetchUploadFile } from '@shared/server/http';
 function App() {
   const [uploadedFiles, setUploadedFiles] = useState<RcFile[]>([]);
   const [numPages, setNumPages] = useState<number>();
-  const [pageNumber, setPageNumber] = useState<number>(1);
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
     setNumPages(numPages);
@@ -53,6 +52,7 @@ function App() {
     setUploadedFiles((prevFiles) => prevFiles.filter((prevFile) => prevFile.uid !== file.uid));
     message.success(`${file.name} удален.`);
   };
+  console.log(new Array(numPages))
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -104,8 +104,17 @@ function App() {
                 </Flex>
               </Flex>
               <Document file={kfc} onLoadSuccess={onDocumentLoadSuccess}>
-                <Page pageNumber={1} />
-                <Page pageNumber={2} />
+                {Array.from(new Array(numPages), (_, index) => (
+                  <Page
+                    noData={<></>}
+                    loading={<></>}
+                    error={<></>}
+                    renderAnnotationLayer={false}
+                    renderTextLayer={false}
+                    key={`page_${index + 1}`}
+                    pageNumber={index + 1}
+                  />
+                ))}
               </Document>
             </Flex>
           </Content>
