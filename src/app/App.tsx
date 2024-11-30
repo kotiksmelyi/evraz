@@ -1,5 +1,3 @@
-import { queryClient } from '@shared/server/queryCLient';
-import { QueryClientProvider } from '@tanstack/react-query';
 import './locale';
 import './styles/App.scss';
 import { ThemeProvider } from './theme';
@@ -11,10 +9,11 @@ import { Content, Header } from 'antd/es/layout/layout';
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import kfc from './kfc.pdf';
-import { fetchUploadFile } from '@shared/server/http';
+import { useGetReport, useGetReview, useUploadFile } from '@shared/server/http';
 
 function App() {
   const [uploadedFiles, setUploadedFiles] = useState<RcFile[]>([]);
+  const [reportId, setReportId] = useState<string | null>(null);
   const [numPages, setNumPages] = useState<number>();
   const [pageNumber, setPageNumber] = useState<number>(1);
 
@@ -22,10 +21,22 @@ function App() {
     setNumPages(numPages);
   }
   pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
+
+  const { mutate: fetchUpload, data: uploadFileData, isPending: isUploadFilePending } = useUploadFile();
+  const { mutate: fetchDownloadReport, data: reportData, isPending: isReportLoading } = useGetReport();
+  const { data: reviewData, isLoading: isReviewLoading } = useGetReview();
+
+  console.log({ reportId, uploadFileData, isUploadFilePending, reportData, isReportLoading });
+
   const handleSend = () => {
-    fetchUploadFile(uploadedFiles[0]);
+    if (uploadedFiles.length) {
+      fetchUpload(uploadedFiles[0], {
+        onSuccess: (id) => setReportId(id),
+      });
+    }
   };
-  const handleDownload = () => null;
+
+  const handleDownload = () => fetchDownloadReport(reportId);
 
   const handleBeforeUpload = (file: RcFile) => {
     if (uploadedFiles.length === 1) {
@@ -55,11 +66,10 @@ function App() {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <Layout className="main-layout">
-          <Content>
-            {/*<div className="history">
+    <ThemeProvider>
+      <Layout className="main-layout">
+        <Content>
+          {/*<div className="history">
               <h2>История отчётов</h2>
               <div>
                 <p>Отчёт 1</p>
@@ -68,50 +78,49 @@ function App() {
                 <p>Отчёт 4</p>
               </div>
             </div>*/}
-            <p>Загрузите файл или архив для анализа.</p>
-            <Flex vertical>
-              <Flex gap="middle" vertical align="center" className="upload-widget">
-                <Upload
-                  name="avatar"
-                  listType="picture-card"
-                  className="avatar-uploader"
-                  showUploadList={true}
-                  onRemove={handleRemove}
-                  multiple={false}
-                  maxCount={1}
-                  beforeUpload={handleBeforeUpload}
-                  locale={{}}
-                >
-                  {uploadedFiles.length ? null : (
-                    <Flex vertical align="center" gap={'small'}>
-                      <div className="upload-icon">
-                        <DownloadOutlined />
-                      </div>
-                      <p>
-                        Перетащите сюда файл
-                        <br /> или нажмите, чтобы загрузить
-                      </p>
-                    </Flex>
-                  )}
-                </Upload>
-                <Flex gap="small">
-                  <Button disabled={!uploadedFiles.length} onClick={handleSend} type="primary">
-                    Отправить
-                  </Button>
-                  <Button disabled onClick={handleDownload}>
-                    Скачать pdf
-                  </Button>
-                </Flex>
+          <p>Загрузите файл или архив для анализа.</p>
+          <Flex vertical>
+            <Flex gap="middle" vertical align="center" className="upload-widget">
+              <Upload
+                name="avatar"
+                listType="picture-card"
+                className="avatar-uploader"
+                showUploadList={true}
+                onRemove={handleRemove}
+                multiple={false}
+                maxCount={1}
+                beforeUpload={handleBeforeUpload}
+                locale={{}}
+              >
+                {uploadedFiles.length ? null : (
+                  <Flex vertical align="center" gap={'small'}>
+                    <div className="upload-icon">
+                      <DownloadOutlined />
+                    </div>
+                    <p>
+                      Перетащите сюда файл
+                      <br /> или нажмите, чтобы загрузить
+                    </p>
+                  </Flex>
+                )}
+              </Upload>
+              <Flex gap="small">
+                <Button disabled={!uploadedFiles.length} onClick={handleSend} type="primary">
+                  Отправить
+                </Button>
+                <Button disabled={!reportId} onClick={handleDownload}>
+                  Скачать pdf
+                </Button>
               </Flex>
-              <Document file={kfc} onLoadSuccess={onDocumentLoadSuccess}>
-                <Page pageNumber={1} />
-                <Page pageNumber={2} />
-              </Document>
             </Flex>
-          </Content>
-        </Layout>
-      </ThemeProvider>
-    </QueryClientProvider>
+            <Document file={kfc} onLoadSuccess={onDocumentLoadSuccess}>
+              <Page pageNumber={1} />
+              <Page pageNumber={2} />
+            </Document>
+          </Flex>
+        </Content>
+      </Layout>
+    </ThemeProvider>
   );
 }
 

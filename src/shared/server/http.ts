@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query';
 import { RcFile } from 'antd/es/upload';
 import axios from 'axios';
 
@@ -8,47 +9,48 @@ export const api = axios.create({
   baseURL: BASE_URL + '/api/',
 });
 
-export async function fetchUploadFile(file: RcFile) {
-  try {
-    console.log({ file });
-    const formData = new FormData();
-    formData.append('file', file);
+//#region Загрузка файла
+export const useUploadFile = () => {
+  return useMutation({
+    mutationFn: async (file: RcFile) => {
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
 
-    const response = await api.post(`upload/`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data', // Указываем нужный Content-Type
-      },
-    });
-    const reportId = response.data;
-    console.log({ reportId, response });
-  } catch (error) {
-    console.log({ error });
-  }
-}
+        const response = await api.post(`upload/`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        return response.data.report_id;
+      } catch (error) {
+        console.log({ error });
+      }
+    },
+  });
+};
+//#endregion
 
-// export async function fetchGetReport(reportId: string) {
-//   try {
-//     console.log({ file });
+//#region Загрузка отчета PDF файлом
+export const useGetReport = () => {
+  return useMutation({
+    mutationFn: async (reportId: string | null) => {
+      if (!reportId) return;
+      const response = await api.get(`report/${reportId}`);
+      return response.data;
+    },
+  });
+};
+//#endregion
 
-//     const response = await api.post(`report/${reportId}`, {
-//       file,
-//     });
-//     console.log({ reportId, response });
-//   } catch (error) {
-//     console.log({ error });
-//   }
-// }
-
-// export async function fetchGetReview(file: RcFile) {
-//   try {
-//     console.log({ file });
-
-//     const response = await api.post(`upload`, {
-//       file,
-//     });
-//     const reportId = response.data;
-//     console.log({ reportId, response });
-//   } catch (error) {
-//     console.log({ error });
-//   }
-// }
+//#region Загрузка ревью
+export const useGetReview = () => {
+  return useMutation({
+    mutationFn: async (reportId: string | null) => {
+      if (!reportId) return;
+      const response = await api.get(`review/${reportId}`);
+      return response.data;
+    },
+  });
+};
+//#endregion
