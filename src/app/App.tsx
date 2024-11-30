@@ -21,6 +21,7 @@ function App() {
   const [uploadedFiles, setUploadedFiles] = useState<RcFile[]>([]);
   const [numPages, setNumPages] = useState<number>();
   const { width } = useWindowSize();
+  const [widthState, setWidthState] = useState<number>(width);
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
     setNumPages(numPages);
@@ -146,14 +147,22 @@ function App() {
               </div>
             )}
             {reportData && !isReportLoading && (
-              <div style={{ scale: 0.5 }}>
+              <div style={{ overflowX: 'scroll', overflowY: 'hidden', padding: '16px', width: `${width}px` }}>
+                <Flex gap={'small'} className="buttons">
+                  <Button type="primary" onClick={() => setWidthState((prev) => prev + 100)}>
+                    +
+                  </Button>
+                  <Button type="primary" onClick={() => setWidthState((prev) => prev - 100)}>
+                    -
+                  </Button>
+                </Flex>
                 <Document file={reportData} onLoadSuccess={onDocumentLoadSuccess} className={'pdf-container'}>
                   {Array.from(new Array(numPages), (_, index) => (
                     <Page
                       noData={<></>}
                       loading={<></>}
                       error={<></>}
-                      width={width}
+                      width={widthState}
                       renderAnnotationLayer={false}
                       renderTextLayer={false}
                       key={`page_${index + 1}`}
