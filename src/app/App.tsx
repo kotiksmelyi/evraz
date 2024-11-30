@@ -8,7 +8,6 @@ import { DownloadOutlined } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
-import kfc from './kfc.pdf';
 import { useGetReport, useUploadFile } from '@shared/server/http';
 import Lottie from 'lottie-react';
 import animation from './animation.json';
@@ -37,18 +36,17 @@ function App() {
 
   const handleDownloadPDF = () => {
     try {
-      const pdfData = new TextEncoder().encode(reportData);
-      const blob = new Blob([pdfData], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
+      const fileUrl = URL.createObjectURL(reportData);
 
       const link = document.createElement('a');
-      link.href = url;
+      link.href = fileUrl;
       link.download = `${uploadedFiles[0].name.split('.')[0]}.pdf`;
       document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
 
       setTimeout(() => {
-        URL.revokeObjectURL(url);
+        URL.revokeObjectURL(fileUrl);
         document.body.removeChild(link);
       }, 1000);
     } catch (error) {

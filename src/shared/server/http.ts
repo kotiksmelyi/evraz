@@ -39,7 +39,7 @@ export const useGetReport = (reportId: string) => {
       if (!reportId) return null;
       const response = await api.get(`report/${reportId}`, {
         headers: { Accept: 'application/pdf' },
-        responseType: 'arraybuffer',
+        responseType: 'blob',
       });
       return response.data;
     },
