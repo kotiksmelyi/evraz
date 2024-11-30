@@ -137,24 +137,22 @@ function App() {
                 <Lottie animationData={animation} loop={true} />;
               </div>
             )}
-            <Document file={kfc} onLoadSuccess={onDocumentLoadSuccess}>
-              {Array.from(new Array(numPages), (_, index) => (
-                <Page
-                  noData={<></>}
-                  loading={<></>}
-                  error={<></>}
-                  renderAnnotationLayer={false}
-                  renderTextLayer={false}
-                  key={`page_${index + 1}`}
-                  pageNumber={index + 1}
-                />
-              ))}
-            </Document>
+            {reportData && (
+              <Document file={reportData} onLoadSuccess={onDocumentLoadSuccess}>
+                {Array.from(new Array(numPages), (_, index) => (
+                  <Page
+                    noData={<></>}
+                    loading={<></>}
+                    error={<></>}
+                    renderAnnotationLayer={false}
+                    renderTextLayer={false}
+                    key={`page_${index + 1}`}
+                    pageNumber={index + 1}
+                  />
+                ))}
+              </Document>
+            )}
           </Flex>
-          <Document file={kfc} onLoadSuccess={onDocumentLoadSuccess}>
-            <Page pageNumber={1} />
-            <Page pageNumber={2} />
-          </Document>
         </Content>
       </Layout>
     </ThemeProvider>
