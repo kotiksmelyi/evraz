@@ -2,18 +2,58 @@
 
 body {
   margin: 0;
-  background-color: $white;
+  background-color: #f5fcff;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+  gap: 24px;
 }
 
 #root {
   min-height: 100vh;
 }
 
+p {
+  margin: 0;
+}
+
 .main-layout {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-  padding: 20px;
-  height: 100vh;
+  min-height: 100vh;
+  flex-direction: row;
+}
+
+.upload-widget {
+  background-color: #f5fcff;
+  max-width: 400px;
+  padding: 24px;
+  border: dashed 1px #c3e6f7;
+  border-radius: 24px;
+  max-height: fit-content;
+  min-height: 200px;
+}
+
+aside {
+  background-color: #f5fcff;
+  border-radius: 24px;
+}
+
+.upload-icon {
+  height: 20px;
+}
+
+.upload-icon svg {
+  height: 20px;
+  width: 80px;
+}
+
+.ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select {
+  width: unset !important;
+  padding: 16px;
+}
+
+.ant-upload-wrapper.ant-upload-picture-card-wrapper {
+  width: unset !important;
 }

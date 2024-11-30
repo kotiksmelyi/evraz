@@ -1,8 +1,7 @@
 import { ConfigProvider } from 'antd';
 import { FC, ReactNode } from 'react';
 import { colors } from '../../../shared/ui';
-import { headerConfig } from '../../../shared/components/header/header.config';
-import { footerConfig } from '../../../shared/components/footer/footer.config';
+import ruRU from 'antd/locale/ru_RU';
 
 type ThemeProviderProps = {
   children: ReactNode;
@@ -11,16 +10,14 @@ type ThemeProviderProps = {
 export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   return (
     <ConfigProvider
+      locale={ruRU}
       theme={{
         token: {
           fontFamily: 'Montserrat',
           colorPrimary: colors.PRIMARY,
         },
-        components: {
-          Layout: {...headerConfig, ...footerConfig},
-      },
-      hashed: false,
-        
+        components: { Layout: { bodyBg: '#e9f8ff' } },
+        hashed: false,
       }}
     >
       {children}
