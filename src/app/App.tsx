@@ -128,7 +128,7 @@ function App() {
                 <Button disabled={!uploadedFiles.length} onClick={handleSend} type="primary">
                   Отправить
                 </Button>
-                <Button disabled={!reportId} onClick={handleDownloadPDF}>
+                <Button disabled={!reportData} onClick={handleDownloadPDF}>
                   Скачать pdf
                 </Button>
               </Flex>
