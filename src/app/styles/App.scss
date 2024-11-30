@@ -57,3 +57,11 @@ aside {
 .ant-upload-wrapper.ant-upload-picture-card-wrapper {
   width: unset !important;
 }
+
+.loading-container {
+	width: 100%;
+	height: 200px;
+	margin: 32px 0;
+	display: flex;
+	justify-content: center;
+}

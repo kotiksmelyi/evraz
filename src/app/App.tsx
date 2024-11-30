@@ -12,6 +12,8 @@ import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import kfc from './kfc.pdf';
 import { fetchUploadFile } from '@shared/server/http';
+import Lottie from 'lottie-react';
+import animation from './animation.json';
 
 function App() {
   const [uploadedFiles, setUploadedFiles] = useState<RcFile[]>([]);
@@ -52,7 +54,7 @@ function App() {
     setUploadedFiles((prevFiles) => prevFiles.filter((prevFile) => prevFile.uid !== file.uid));
     message.success(`${file.name} удален.`);
   };
-  console.log(new Array(numPages))
+  console.log(new Array(numPages));
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -69,7 +71,7 @@ function App() {
               </div>
             </div>*/}
             <p>Загрузите файл или архив для анализа.</p>
-            <Flex vertical>
+            <Flex vertical align='center'>
               <Flex gap="middle" vertical align="center" className="upload-widget">
                 <Upload
                   name="avatar"
@@ -103,6 +105,9 @@ function App() {
                   </Button>
                 </Flex>
               </Flex>
+              <div className={'loading-container'}>
+                <Lottie animationData={animation} loop={true} />;
+              </div>
               <Document file={kfc} onLoadSuccess={onDocumentLoadSuccess}>
                 {Array.from(new Array(numPages), (_, index) => (
                   <Page
