@@ -48,5 +48,14 @@ export const useGetReport = (reportId: string) => {
 };
 //#endregion
 
-//#region Загрузка ревью
-//#endregion
+export const useGetReportJSON = (reportId: string) => {
+  return useQuery({
+    queryKey: ['review', reportId],
+    queryFn: async () => {
+      if (!reportId) return null;
+      const response = await api.get(`review/${reportId}`);
+      return response.data;
+    },
+    enabled: !!reportId,
+  });
+};
