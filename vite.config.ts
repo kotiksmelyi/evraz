@@ -24,7 +24,7 @@ export default defineConfig({
       exposes: {
         './app/App': './src/app/App.tsx',
       },
-      shared: ['react', 'react-dom', 'react-router-dom', 'antd', 'i18next', 'zustand', 'typescript'],
+      shared: ['react', 'react-dom', 'react-router-dom', 'antd', 'typescript'],
     }),
   ],
   server: {
